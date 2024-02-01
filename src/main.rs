@@ -29,7 +29,6 @@ pub fn test() -> String {
 // Define a constant for the desired buffer size
 const BUFFER_SIZE: usize = 4096; // You can adjust this value based on your needs
 
-
 #[component]
 fn DemoArrayBuffer() -> impl IntoView {
     let (dropped, set_dropped) = create_signal(false);
@@ -86,7 +85,7 @@ fn DemoArrayBuffer() -> impl IntoView {
     view! {
         <div class="flex">
             <div class="w-full h-auto relative">
-                <p>Drop files into dropZone</p>
+                <p>Drop files into dropZone to calculate its SHA-254 Hash</p>
                 <img width="64" src="img/leptos-use-logo.svg" alt="Drop me"/>
                 <div
                     node_ref=drop_zone_el
@@ -109,10 +108,10 @@ fn DemoArrayBuffer() -> impl IntoView {
 
                                         let n_reading_rounds = ((file_size / (BUFFER_SIZE as f64)).ceil() as usize);
                                         debug_warn!("READING ROUNDS: {:?}", &n_reading_rounds);
-    
+
                                         let mut hasher = RefCell::new(Sha256::new()); // Create a new SHA-2 hasher
                                         let mut n_iteration = 0 as usize;
-                                      
+
 
                                         let onload_callback = Closure::wrap(Box::new(move |event: web_sys::Event| {
 
@@ -150,7 +149,7 @@ fn DemoArrayBuffer() -> impl IntoView {
                                         }) as Box<dyn FnMut(_)>);
 
 
-                                      
+
                                         let mut offset: usize = 0;
 
 
@@ -193,6 +192,18 @@ fn DemoArrayBuffer() -> impl IntoView {
                 </div>
             </div>
         </div>
+
+        <div role="alert">
+        <div class="bg-blue-500 text-white font-bold rounded-t px-4 py-2">
+            Privacy
+        </div>
+        <div class="border border-t-0 border-blue-400 rounded-b bg-blue-100 px-4 py-3 text-blue-700">
+            <p>This site does not track you or gather any information about you.</p>
+            <p>Thanks to WebAssembly and Rust, your FILE is processed on your device and can not be tracked by anyone.</p>
+        </div>
+        </div>
+
+
     }
 }
 
